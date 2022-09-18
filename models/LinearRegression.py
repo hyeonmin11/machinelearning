@@ -39,13 +39,24 @@ class LinearRegression:
 
                 # ========================= EDIT HERE ========================
                 #w_update = np.zeros_like(self.W)
-                y_pred = np.dot(x_new, (self.W).T)
-                loss_vector = y-y_pred
+                #print(x_new)
+                #print('----------')
+                #print(self.W)
+                #print('----------')
+                y_pred = np.dot(x_new, self.W)
+                #print(y_pred)
+                #print('--------')
+                #print(y)
+                #print('********')
+                loss_vector = y - y_pred
+                xtrans = x_new.transpose()
+                grad = sum(xtrans * (y - y_pred)) / num_data
+                print(grad)
                 #hypothesis = x_new(beta)
                 #loss_vector = hypothesis - y
-                grad = x_new.T.dot(loss_vector)/num_data
-                w_update = -(2/num_data)*lr*(np.dot(x_new.T, loss_vector))
-                self.W = w_update
+                #grad = x_new.T.dot(loss_vector)/num_data
+                
+                self.W = self.W - lr*grad
                 #cost = np.sum((x_new.dot(beta)-y)**2)/2/num_data
                 #cost_history[epoch] = cost
                 #grad = None

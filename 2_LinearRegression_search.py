@@ -26,15 +26,21 @@ search_param = 'lr'
 _batch_size = 32
 _lr = [0.1, 0.01, 0.05]
 """
-search_param = 'lr'
-_batch_size = 32
-_lr = [0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001]
+search_param = 'batch_size'
+_batch_size = 32 if search_param == 'lr' else [4,8,16,32,64]
+_lr = [0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001] if search_param == 'lr' else 0.01
+
+
+#search_param = 'batch'
+#_lr = 0.01
+#_batch_size = [4, 8, 16, 32, 64]
 # ============================================================
 
 
 train_results = []
 test_results = []
 search_space = _lr if search_param == 'lr' else _batch_size
+#print(search_space)
 for i, space in enumerate(search_space):
     # Build model
     model = LinearRegression(num_features=x_train_data.shape[1])
