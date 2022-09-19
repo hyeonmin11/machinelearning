@@ -5,6 +5,8 @@ from utils import optimizer, RMSE
 
 
 np.random.seed(10)
+#print(np.random.randint(1))
+
 
 Dataset = np.loadtxt('data/check_data.txt')
 x_data, y_data = Dataset[:, :-1], Dataset[:, -1]

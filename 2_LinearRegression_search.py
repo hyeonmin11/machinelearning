@@ -10,6 +10,7 @@ np.random.seed(2021)
 # Data generation
 train_data, test_data = load_data('Wave')
 x_train_data, y_train_data = train_data[0], train_data[1]
+
 x_test_data, y_test_data = test_data[0], test_data[1]
 
 # Hyper-parameter
@@ -26,8 +27,8 @@ search_param = 'lr'
 _batch_size = 32
 _lr = [0.1, 0.01, 0.05]
 """
-search_param = 'batch_size'
-_batch_size = 32 if search_param == 'lr' else [4,8,16,32,64]
+search_param = 'batch_size'  # lr or batch_size
+_batch_size = 32 if search_param == 'lr' else [4,8,16,32,64,128]
 _lr = [0.1, 0.05, 0.01, 0.005, 0.001, 0.0005, 0.0001] if search_param == 'lr' else 0.01
 
 

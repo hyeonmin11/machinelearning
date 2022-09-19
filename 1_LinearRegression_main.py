@@ -10,7 +10,7 @@ np.random.seed(2021)
 train_data, _ = load_data('Diabetes')
 
 x_data, y_data = train_data[0], train_data[1]
-print(x_data)
+#print(x_data)
 # Hyper-parameter
 _epoch=10000
 _batch_size=32

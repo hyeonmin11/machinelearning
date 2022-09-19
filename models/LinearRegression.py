@@ -38,51 +38,38 @@ class LinearRegression:
                 # batch gradient descent
 
                 # ========================= EDIT HERE ========================
-                #w_update = np.zeros_like(self.W)
-                #print(x_new)
-                #print('----------')
-                #print(self.W)
-                #print('----------')
-                y_pred = np.dot(x_new, self.W)
-                #print(y_pred)
-                #print('--------')
-                #print(y)
-                #print('********')
-                loss_vector = y - y_pred
-                xtrans = x_new.transpose()
-                grad = sum(xtrans * (y - y_pred)) / num_data
-                print(grad)
-                #hypothesis = x_new(beta)
-                #loss_vector = hypothesis - y
-                #grad = x_new.T.dot(loss_vector)/num_data
+      
+                y_pred = x_new.dot(self.W)
+                loss_vector = y_pred - y 
+    
+                grad = np.dot( x_new.T , loss_vector ) / num_data
                 
-                self.W = self.W - lr*grad
-                #cost = np.sum((x_new.dot(beta)-y)**2)/2/num_data
-                #cost_history[epoch] = cost
-                #grad = None
-
+   
 
                 # ============================================================
 
                 self.W = optim.update(self.W, grad, lr)
             else:
                 # mini-batch stochastic gradient descent
+            
                 for batch_index in range(num_batch):
                     batch_x = x_new[batch_index*batch_size:(batch_index+1)*batch_size]
                     batch_y = y[batch_index*batch_size:(batch_index+1)*batch_size]
-
                     num_samples_in_batch = len(batch_x)
                     
+                    #print(len(batch_x))
                     # ========================= EDIT HERE ========================
-                    random_index = np.random.randint((batch_index+1)*batch_size - batch_index*batch_size)
-                    sampX = batch_x[random_index:random_index+1]
-                    sampY = batch_y[random_index:random_index+1]
-                    loss_vector = sampX.dot(self.W)-sampY
-                    grad = 2*sampX.T.dot(loss_vector)
-                    # ============================================================
+                    random_index = np.random.randint(num_samples_in_batch)
+                    #sampX = batch_x[random_index]#:random_index+1
+                    #sampY = batch_y[random_index]
+          
+                    loss_vector = batch_x.dot(self.W)-batch_y
+      
+                    grad = np.dot(batch_x.T,loss_vector)/num_samples_in_batch
+      
                     # cited: https://better-tomorrow.tistory.com/entry/Stochastic-gradient-descent%ED%99%95%EB%A5%A0%EC%A0%81-%EA%B2%BD%EC%82%AC-%ED%95%98%EA%B0%95%EB%B2%95
 
-                    self.W = optim.update(self.W, grad, lr)
+                    self.W = optim.update(self.W, grad, lr) 
 
     def analytic_solution(self, x, y):
         """
@@ -116,7 +103,7 @@ class LinearRegression:
         # You should add column of ones for bias after the last column of x
         _, columns = x.shape
         bias = np.ones(_)
-        print(len(bias))
+        #print(len(bias))
         x_new = np.c_[x, bias]
         # ========================= EDIT HERE ========================
         return x_new
